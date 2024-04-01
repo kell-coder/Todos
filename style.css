@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+* {
+	margin:0;
+	padding: 0;
+
+	list-style: none;
+}
+
+
+body {
+
+
+	font-family: 'Poppins', sans-serif;
+	font-weight: bold;
+	display: flex;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+}
+
+.container {
+	background: steelblue;
+	height: 500px;
+	width: 900px;
+	padding: 10px;
+
+	display: flex;
+
+	z-index: 2;
+}
+
+.classes, .tasks {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+}
+
+.classes {
+	background: #fff;
+	margin-right: 5px;
+}
+
+.tasks {
+	background: steelblue;
+	margin-left: 5px;
+}
+
+.task-list, .class-list {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+
+	padding: 10px;
+}
+
+.add-class, .add-task {
+	text-decoration: none;
+	background: black;
+	color: #fff;
+	font-size: 25px;
+	margin: 10px;
+	padding: 5px 20px;
+
+	display: flex;
+	align-self: center;
+	flex-grow: 0;
+}
+
+.add-task {
+	display: none;
+}
+
+.divClass, .divTask {
+	display: flex;
+	justify-content: space-between;
+}
+
+.divTask {
+	color: #fff;
+}
+
+.classes div, .tasks div {
+	font-size: 25px;
+	margin: 5px 0;
+	padding: 10px;
+}
+
+.clase, .tarea {
+	user-select: none;
+}
+
+.active {
+	background: steelblue;
+	color: #fff;
+}
+
+.delete {
+	text-decoration: none;
+	color: black;
+}
