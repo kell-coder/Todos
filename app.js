@@ -121,19 +121,80 @@ UI.prototype.addTask = function(task, target){
 
 
 
+getModal = label => {
+	const div = document.createElement('div');
+	div.style.position = "fixed";
+	//div.style.left = "50%";
+	//div.style.top = "50%";
+	div.style.width = '20vw';
+	div.style.padding = '20px';
+	div.style.height = '10vh';
+	div.style.backgroundColor = 'black';
+	div.style.zIndex = "5";
+	div.style.display = "flex";
+	div.style.justifyContent = "center";
+	div.style.alignItems = "center";
+	div.style.color = "white";
+	div.style.borderRadius = "5px";
+	const input = document.createElement("input");
+	input.name = "className";
+	input.style.margin = "10px";
+	div.innerText += label;
+	const btn = document.createElement("button");
+	btn.style.padding = "2px";
+	btn.style.margin = "5px";
+	btn.innerText = "Agregar";
+	
+	const back = document.createElement('div');
+	back.style.display = "flex";
+	back.style.alignItems = "center";
+	back.style.justifyContent = "center";
+	back.style.backgroundColor = "white";
+	back.style.width = "100vw";
+	back.style.height = "100vh";
+	back.style.position = "fixed";
+	back.style.zIndex = "2";
+	back.id = "backmodal"
+	back.style.backgroundColor = "rgba(255, 255, 255, .3)";
+	
+	div.appendChild(input);
+	div.appendChild(btn);
+	back.appendChild(div);
+	
+	back.addEventListener("click", (e) => {
+		if (e.target.id === "backmodal") {
+			div.remove();
+			back.remove();
+		}
+	});
+	
+	return [div, back, btn, input];
+}
+
 
 
 document.querySelector('.add-class').addEventListener('click', function(){
-	const str = prompt('New');
-	const ui = new UI();
-
-	if(str === null){
-
-	}else{
+	const [div, back, btn, input] = getModal( "Nueva clase:");
+	
+	document.body.appendChild(back);
+	
+	input.focus();
+	
+	btn.addEventListener("click", () => {
+		const str = input.value;
+		
+		if (str == "") {
+			return;
+		}
+		
+		const ui = new UI();
+		
 		ui.addClass(str);
-
 		Store.addClass(str);
-	}
+		
+		div.remove();
+		back.remove();
+	});
 });
 
 let current;
@@ -155,7 +216,7 @@ document.querySelector('.classes').addEventListener('click', function(e){
 		current = e.target.children[0].textContent;
 	}
 
-	if(e.target.className === 'delete' && confirm('Seguro?')){
+	if(e.target.className === 'delete'){
 		Store.removeClass(e.target.parentElement.textContent);
 
 		e.target.parentElement.parentElement.remove();
@@ -170,19 +231,27 @@ document.querySelector('.classes').addEventListener('click', function(e){
 });
 
 
-document.querySelector('.add-task').addEventListener('click', function(){
-	if(current != undefined){
-
-		const str = prompt('New');
-		const ui = new UI();
-
-		if(str === null){
-
-		}else{
+document.querySelector('.add-task').addEventListener('click', function() {
+	if (current != undefined) {
+		const [div, back, btn, input] = getModal("Nueva tarea:");
+		document.body.appendChild(back);
+		input.focus();
+		
+		btn.addEventListener("click", () => {
+			const str = input.value;
+			
+			if (str == "") {
+				return;
+			}
+		
+			const ui = new UI();
+		
 			ui.addTask(str, current);
-
 			Store.addTask(current, str);
-		}
+		
+			div.remove();
+			back.remove();
+		});
 	}
 });
 
